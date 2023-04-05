@@ -729,8 +729,6 @@
         <item>"/apex/com.android.art/javalib/core-oj.jar"</item>
         <item>"/apex/com.android.art/javalib/core-libart.jar"</item>
         <item>"/system_ext/priv-app/SystemUI/SystemUI.apk"</item>
-        <item>"/system_ext/priv-app/MotoDolbyDax3/MotoDolbyDax3.apk"</item>
-        <item>"/system_ext/priv-app/daxService/daxService.apk"</item>
         <item>"/system/bin/surfaceflinger"</item>
     </string-array>
 
@@ -915,7 +913,4 @@
 
     <!-- Whether to cancel fingerprint operation if not idle -->
     <bool name="config_fpCancelIfNotIdle">true</bool>
-
-    <!-- Whether or not wcg mode should be enabled on this device -->
-    <bool name="config_enableWcgMode">true</bool>
 </resources>

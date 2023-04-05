@@ -28,7 +28,13 @@
 # Firmware directory Path
 # Below macro will be read by uevent and path will
 # be added to search path for firmware loading
-firmware_directories /vendor/firmware_mnt/image/
+# ifndef OPLUS_FEATURE_WIFI_BDF
+# Laixin@CONNECTIVITY.WIFI.BASE.HARDWARE.1065227 , 2019/10/17
+# Modify for: multi projects using different bdf, adding persist into firmware_directories
+#firmware_directories /vendor/firmware_mnt/image/
+# else /* OPLUS_FEATURE_WIFI_BDF */
+firmware_directories /odm/etc/wifi/ /mnt/vendor/persist/ /vendor/firmware_mnt/image/
+# endif /* OPLUS_FEATURE_WIFI_BDF */
 
 # the DIAG device node is not world writable/readable.
 /dev/diag                 0660   system     oem_2901
@@ -61,7 +67,6 @@ firmware_directories /vendor/firmware_mnt/image/
 /dev/hab                  0666   system     system
 /dev/hgsl                 0666   system     system
 /dev/iio:device*          0664   system     system
-/dev/st21nfc              0660   nfc        nfc
 
 #permissions for UFS RPMB BSG device node
 /dev/0:0:0:49476          0600   system     system
@@ -73,6 +78,7 @@ firmware_directories /vendor/firmware_mnt/image/
 /dev/smd2                 0660   bluetooth  bluetooth
 /dev/smd3                 0660   bluetooth  bluetooth
 /dev/btpower              0660   bluetooth  system
+/dev/btfmslim             0660   bluetooth  system
 
 #permissions for pta
 /dev/pta                  0660   system     system
@@ -174,7 +180,7 @@ firmware_directories /vendor/firmware_mnt/image/
 
 #qvr
 /dev/qvr_external_sensor_ioctl      0660  system  system
-/sys/kernel/qvr_external_sensor fd  0660  system  system
+/sys/kernel/qvr_external_sensor/fd  0660  system  system
 /dev/bus/usb/*                      0660  root    usb
 /dev/hidraw*                        0660  root    usb
 
@@ -187,7 +193,6 @@ firmware_directories /vendor/firmware_mnt/image/
 /sys/devices/platform/soc/1c00000.qcom,pcie/pci0000:00/0000:00:00.0/0000:01:00.0/net/wlan*/queues/rx-* rps_cpus      0660   system     system
 /sys/devices/platform/soc/17a10040.qcom,wcn6750/net/wlan*/queues/rx-* rps_cpus    0660   system     system
 /dev/spidev0.0            0660   system     audio
-/dev/spidev0.1            0660   system     system
 /dev/i2c-7                0660   system     audio
 /dev/msm_camera/*         0660   system     camera
 /dev/gemini/              0660   system     camera
@@ -197,6 +202,7 @@ firmware_directories /vendor/firmware_mnt/image/
 /dev/msm_vidc_dec_sec     0660   system     audio
 /dev/msm_vidc_enc         0660   system     audio
 /dev/msm_rotator          0660   system     system
+/dev/hw_random            0600   root       root
 /dev/sdsprpc-smd          0660   system     system
 
 #permissions for audio
@@ -342,10 +348,6 @@ firmware_directories /vendor/firmware_mnt/image/
 /dev/hbtp_input           0660   system     system
 /dev/hbtp_vm              0660   system     system
 
-#elliptic sensor
-/dev/elliptic0            0644   system     system
-/dev/elliptic1            0644   system     system
-
 # Add device block for FRP
 /dev/block/platform/soc/7824900.sdhci/by-name/config    0600   system     system
 /dev/block/platform/soc/7464900.sdhci/by-name/frp       0600   system     system
@@ -366,14 +368,20 @@ firmware_directories /vendor/firmware_mnt/image/
 # LED class devices
 /sys/class/leds/red      delay_on     0640    system    system
 /sys/class/leds/red      delay_off    0640    system    system
+/sys/class/leds/red      breath_on    0664    system    system
+/sys/class/leds/red      breath_off   0664    system    system
 /sys/class/leds/red      breath       0640    system    system
 /sys/class/leds/red      trigger      0640    system    system
 /sys/class/leds/green    delay_on     0640    system    system
 /sys/class/leds/green    delay_off    0640    system    system
+/sys/class/leds/green    breath_on    0664    system    system
+/sys/class/leds/green    breath_off   0664    system    system
 /sys/class/leds/green    breath       0640    system    system
 /sys/class/leds/green    trigger      0640    system    system
 /sys/class/leds/blue     delay_on     0640    system    system
 /sys/class/leds/blue     delay_off    0640    system    system
+/sys/class/leds/blue     breath_on    0664    system    system
+/sys/class/leds/blue     breath_off   0664    system    system
 /sys/class/leds/blue     breath       0640    system    system
 /sys/class/leds/blue     trigger      0640    system    system
 
@@ -389,9 +397,6 @@ firmware_directories /vendor/firmware_mnt/image/
 /sys/devices/system/memory/memory* state    0660 system system
 
 /sys/devices/virtual/hdcp/msm_hdcp  min_level_change 0664    system  graphics
-
-#KGSL
-/sys/class/kgsl/kgsl-3d0    perfcounter              0660    root    shell
 
 # sys-fs display
 /sys/class/graphics/fb*     hpd                      0664    system  graphics
@@ -422,6 +427,7 @@ firmware_directories /vendor/firmware_mnt/image/
 /sys/class/graphics/fb0     modes                    0664    system  graphics
 /sys/class/graphics/fb0     mode                     0664    system  graphics
 /sys/class/graphics/fb0     msm_cmd_autorefresh_en   0664    system  graphics
+*/
 
 /sys/devices/platform/soc/ae00000.qcom,mdss_mdp power/control 0664 system graphics
 
@@ -485,6 +491,3 @@ firmware_directories /vendor/firmware_mnt/image/
 /sys/devices/platform/soc/*.i2c/i2c-*/*-*/iio:device*   in_temp_raw                     0664    system  system
 /sys/devices/platform/soc/*.i2c/i2c-*/*-*/iio:device*   in_temp_scale                   0664    system  system
 /sys/devices/platform/soc/*.i2c/i2c-*/*-*/iio:device*   in_temp_scale_available         0664    system  system
-
-# silead fingerprint
-/dev/silead_fp   0660   system   system

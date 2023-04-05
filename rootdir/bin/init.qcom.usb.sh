@@ -47,11 +47,7 @@ target=`getprop ro.board.platform`
 # Override USB default composition
 #
 # If USB persist config not set, set default configuration
-
-debuggable=`getprop ro.debuggable`
-
-if [ "$(getprop persist.vendor.usb.config)" == "diag,serial_cdev,rmnet,dpl,qdss,adb" \
-	-o "$(getprop persist.vendor.usb.config)" == "" -a \
+if [ "$(getprop persist.vendor.usb.config)" == "" -a "$(getprop ro.build.type)" != "user" -a \
 	"$(getprop init.svc.vendor.usb-gadget-hal-1-0)" != "running" ]; then
     if [ "$esoc_name" != "" ]; then
 	  setprop persist.vendor.usb.config diag,diag_mdm,qdss,qdss_mdm,serial_cdev,dpl,rmnet,adb
@@ -106,14 +102,7 @@ if [ "$(getprop persist.vendor.usb.config)" == "diag,serial_cdev,rmnet,dpl,qdss,
 		          setprop persist.vendor.usb.config diag,serial_cdev,rmnet,dpl,adb
 		      ;;
 	              "msmnile" | "sm6150" | "trinket" | "lito" | "atoll" | "bengal" | "lahaina" | "holi")
-			      case "$debuggable" in
-				  "1")
-					  setprop persist.vendor.usb.config adb
-					  ;;
-				  *)
-					  setprop persist.vendor.usb.config none
-					  ;;
-				  esac
+			  setprop persist.vendor.usb.config diag,serial_cdev,rmnet,dpl,qdss,adb
 		      ;;
 	              "monaco")
 		          setprop persist.vendor.usb.config diag,qdss,rmnet,adb
@@ -121,7 +110,7 @@ if [ "$(getprop persist.vendor.usb.config)" == "diag,serial_cdev,rmnet,dpl,qdss,
 	              *)
 		          setprop persist.vendor.usb.config diag,adb
 		      ;;
-		     esac
+                    esac
 		    ;;
 		  esac
 	          ;;
@@ -161,7 +150,13 @@ if [ -d /config/usb_gadget ]; then
 	fi
 
 	machine_type=`cat /sys/devices/soc0/machine`
-	setprop vendor.usb.product_string "$machine_type-$soc_hwplatform _SN:$msm_serial_hex"
+
+#ifdef OPLUS_FEATURE_CHG_BASIC
+	product_string=`getprop ro.vendor.oplus.market.name`
+#else
+	#setprop vendor.usb.product_string "$machine_type-$soc_hwplatform _SN:$msm_serial_hex"
+#endif
+	echo "$product_string" > /config/usb_gadget/g1/strings/0x409/product
 
 	# ADB requires valid iSerialNumber; if ro.serialno is missing, use dummy
 	serialnumber=`cat /config/usb_gadget/g1/strings/0x409/serialnumber 2> /dev/null`
@@ -170,14 +165,6 @@ if [ -d /config/usb_gadget ]; then
 		echo $serialno > /config/usb_gadget/g1/strings/0x409/serialnumber
 	fi
 	setprop vendor.usb.configfs 1
-fi
-
-# update product
-marketname=`getprop ro.product.marketname`
-if [ "$marketname" != "" ]; then
-    setprop vendor.usb.product_string "$marketname"
-else
-    setprop vendor.usb.product_string "$(getprop ro.product.model)"
 fi
 
 #

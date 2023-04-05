@@ -1,0 +1,14 @@
+libqti-perfd-client.so
+libadsprpc.so
+libcdsprpc.so
+libsdsprpc.so
+libfastcvopt.so
+liblistensoundmodel2.so
+libOpenCL.so
+libAlgoProcess.so
+libancbase_rt_bokeh.so
+libAncHumBokeh.so
+libsnpe_loader.so
+libAncHumVideoBase.so
+libmidasserviceintf.so
+libAncFilter.so
