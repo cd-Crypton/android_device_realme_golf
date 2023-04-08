@@ -91,9 +91,6 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_PACKAGES += \
     libaudio-resampler \
-    libqcompostprocbundle \
-    libqcomvisualizer \
-    libqcomvoiceprocessing \
     libtinycompress
 
 # Audio configs
@@ -145,11 +142,8 @@ PRODUCT_PACKAGES += \
 
 # Display
 PRODUCT_PACKAGES += \
-    android.hardware.graphics.mapper@3.0-impl-qti-display \
-    android.hardware.graphics.mapper@4.0-impl-qti-display \
     android.hardware.memtrack@1.0-impl \
-    android.hardware.memtrack@1.0-service \
-    memtrack.bengal
+    android.hardware.memtrack@1.0-service
 
 PRODUCT_PACKAGES += \
     vendor.display.config@1.14 \
@@ -172,8 +166,6 @@ PRODUCT_PACKAGES += \
     libdisplayconfig.system.qti \
     libqdMetaData \
     libqdMetaData.system \
-    libsdmcore \
-    libsdmutils \
     libtinyxml \
     libvulkan
 
@@ -272,17 +264,6 @@ PRODUCT_PACKAGES += \
     libavservices_minijail.vendor
 
 PRODUCT_PACKAGES += \
-    libOmxAacEnc \
-    libOmxAmrEnc \
-    libOmxCore \
-    libOmxEvrcEnc \
-    libOmxG711Enc \
-    libOmxQcelp13Enc \
-    libOmxVdec \
-    libOmxVenc
-
-PRODUCT_PACKAGES += \
-    libstagefrighthw \
     libstagefright_omx.vendor
 
 PRODUCT_COPY_FILES += \
