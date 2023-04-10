@@ -344,6 +344,7 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_PACKAGES += \
     fstab.emmc \
+    fstab.default \
     init.qcom.usb.rc \
     init.qcom.rc \
     init.target.rc \
