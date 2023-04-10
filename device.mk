@@ -295,8 +295,7 @@ DEVICE_PACKAGE_OVERLAYS += \
     
 PRODUCT_PACKAGES += \
     OplusDoze \
-    CarrierConfigOverlay \
-    WifiResCommon
+    CarrierConfigOverlay
 
 # Power
 PRODUCT_PACKAGES += \
