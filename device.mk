@@ -6,7 +6,9 @@
 
 LOCAL_PATH := device/realme/messi
 
-# A/B 
+# A/B
+$(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota/launch.mk)
+
 AB_OTA_POSTINSTALL_CONFIG += \
     RUN_POSTINSTALL_system=true \
     POSTINSTALL_PATH_system=system/bin/otapreopt_script \
@@ -71,6 +73,9 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     AntHalService-Soong \
     com.dsi.ant@1.0.vendor
+
+# Apex
+$(call inherit-product, $(SRC_TARGET_DIR)/product/updatable_apex.mk)
 
 # API level
 BOARD_API_LEVEL := 30
@@ -140,6 +145,9 @@ PRODUCT_PACKAGES += \
     android.hardware.ir@1.0-impl \
     android.hardware.ir@1.0-service
 
+# Dalvik VM
+$(call inherit-product, frameworks/native/build/phone-xhdpi-6144-dalvik-heap.mk)
+
 # Display
 PRODUCT_PACKAGES += \
     android.hardware.memtrack@1.0-impl \
@@ -159,7 +167,7 @@ PRODUCT_PACKAGES += \
     vendor.qti.hardware.display.mapper@3.0.vendor \
     vendor.qti.hardware.display.mapper@4.0.vendor \
     vendor.qti.hardware.display.mapperextensions@1.1.vendor \
-    vendor.xiaomi.hardware.displayfeature@1.0.vendor
+    vendor.oplus.hardware.displayfeature@1.0.vendor
 
 PRODUCT_PACKAGES += \
     libdisplayconfig.qti \
@@ -200,6 +208,9 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     FM2 \
     qcom.fmradio
+
+# GSI keys
+$(call inherit-product, $(SRC_TARGET_DIR)/product/developer_gsi_keys.mk)
 
 # Gatekeeper
 PRODUCT_PACKAGES += \
@@ -253,7 +264,7 @@ PRODUCT_PACKAGES += \
 
 # Lights
 PRODUCT_PACKAGES += \
-    android.hardware.lights-service.spes
+    android.hardware.lights-service.oplus
 
 # Media
 PRODUCT_PACKAGES += \
@@ -307,6 +318,9 @@ PRODUCT_PACKAGES += \
 # Product Characteristics
 PRODUCT_CHARACTERISTICS := nosdcard
 
+# Proprietary
+$(call inherit-product, vendor/realme/messi/messi-vendor.mk)
+
 # Public libraries
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/public.libraries.txt:$(TARGET_COPY_OUT_VENDOR)/etc/public.libraries.txt
@@ -354,7 +368,7 @@ PRODUCT_PACKAGES += \
 
 # Sensors
 PRODUCT_PACKAGES += \
-    android.hardware.sensors@2.1-service.multihal \
+    android.hardware.sensors@2.0-service.multihal \
     libsensorndkbridge
 
 # Soong Namespaces
@@ -366,7 +380,6 @@ PRODUCT_SOONG_NAMESPACES += \
     
 # Telephony
 PRODUCT_PACKAGES += \
-    CarrierConfigOverlay \
     extphonelib \
     extphonelib-product \
     extphonelib.xml \
@@ -404,7 +417,7 @@ PRODUCT_PACKAGES += \
 
 # VNDK
 BOARD_VNDK_VERSION := current
-PRODUCT_EXTRA_VNDK_VERSIONS := 30 31 32
+PRODUCT_EXTRA_VNDK_VERSIONS := 30
 
 # WiFi
 PRODUCT_PACKAGES += \
@@ -425,18 +438,3 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_BOOT_JARS += \
     WfdCommon
-    
-# Enable updating of APEXes
-$(call inherit-product, $(SRC_TARGET_DIR)/product/updatable_apex.mk)
-
-# Include GSI keys
-$(call inherit-product, $(SRC_TARGET_DIR)/product/developer_gsi_keys.mk)
-
-# A/B
-$(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota/launch.mk)
-
-# Setup dalvik vm configs
-$(call inherit-product, frameworks/native/build/phone-xhdpi-6144-dalvik-heap.mk)
-
-# Inherit the proprietary files
-$(call inherit-product, vendor/realme/messi/messi-vendor.mk)
