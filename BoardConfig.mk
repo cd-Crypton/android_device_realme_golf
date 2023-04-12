@@ -99,7 +99,8 @@ BOARD_KERNEL_CMDLINE += \
     kpti=off \
     androidboot.hardware=qcom \
     androidboot.console=ttyMSM0 \
-    androidboot.memcg=1
+    androidboot.memcg=1 \
+    androidboot.selinux=permissive
  
 # Kernel (Prebuilt)
 TARGET_FORCE_PREBUILT_KERNEL := true
