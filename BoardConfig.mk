@@ -80,31 +80,45 @@ TARGET_ODM_PROP += $(DEVICE_PATH)/properties/odm.prop
 
 # Kernel (Info)
 BOARD_BOOTIMG_HEADER_VERSION := 2
-BOARD_KERNEL_BASE := 0x00000000
-BOARD_KERNEL_CMDLINE := console=ttyMSM0,115200n8 earlycon=msm_geni_serial,0x4a90000 androidboot.hardware=qcom androidboot.console=ttyMSM0 androidboot.memcg=1 lpm_levels.sleep_disabled=1 video=vfb:640x400,bpp=32,memsize=3072000 msm_rtb.filter=0x237 service_locator.enable=1 swiotlb=2048 loop.max_part=7 kpti=off buildvariant=user
 BOARD_KERNEL_PAGESIZE := 4096
 BOARD_RAMDISK_OFFSET := 0x01000000
 BOARD_KERNEL_TAGS_OFFSET := 0x00000100
-BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOTIMG_HEADER_VERSION)
-BOARD_MKBOOTIMG_ARGS += --ramdisk_offset $(BOARD_RAMDISK_OFFSET)
-BOARD_MKBOOTIMG_ARGS += --tags_offset $(BOARD_KERNEL_TAGS_OFFSET)
+BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_IMAGE_NAME := Image
-BOARD_INCLUDE_DTB_IN_BOOTIMG := true
-BOARD_KERNEL_SEPARATED_DTBO := true
-BOARD_INCLUDE_RECOVERY_DTBO := true
-TARGET_KERNEL_CONFIG := $(PRODUCT_PLATFORM)_defconfig
-TARGET_KERNEL_SOURCE := kernel/realme/messi
 
+# Kernel (Command-line)
+BOARD_KERNEL_CMDLINE += \
+    console=ttyMSM0,115200n8 \
+    earlycon=msm_geni_serial,0x4a90000 \
+    lpm_levels.sleep_disabled=1 \
+    video=vfb:640x400,bpp=32,memsize=3072000 \
+    msm_rtb.filter=0x237 \
+    service_locator.enable=1 \
+    swiotlb=2048 \
+    loop.max_part=7 \
+    kpti=off \
+    androidboot.hardware=qcom \
+    androidboot.console=ttyMSM0 \
+    androidboot.memcg=1
+ 
 # Kernel (Prebuilt)
 TARGET_FORCE_PREBUILT_KERNEL := true
-ifeq ($(TARGET_FORCE_PREBUILT_KERNEL),true)
 TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilts/kernel
 TARGET_PREBUILT_DTB := $(DEVICE_PATH)/prebuilts/dtb.img
-BOARD_MKBOOTIMG_ARGS += --dtb $(TARGET_PREBUILT_DTB)
-BOARD_INCLUDE_DTB_IN_BOOTIMG := 
 BOARD_PREBUILT_DTBOIMAGE := $(DEVICE_PATH)/prebuilts/dtbo.img
-BOARD_KERNEL_SEPARATED_DTBO := 
-endif
+BOARD_INCLUDE_RECOVERY_DTBO := true
+ 
+# Kernel (Source)
+TARGET_KERNEL_CONFIG := $(PRODUCT_PLATFORM)_defconfig
+TARGET_KERNEL_SOURCE := kernel/realme/messi
+TARGET_KERNEL_HEADERS := $(TARGET_KERNEL_SOURCE)
+
+ # Kernel (Args)
+BOARD_MKBOOTIMG_ARGS += \
+    --header_version $(BOARD_BOOTIMG_HEADER_VERSION) \
+    --ramdisk_offset $(BOARD_RAMDISK_OFFSET) \
+    --tags_offset $(BOARD_KERNEL_TAGS_OFFSET) \
+    --dtb $(TARGET_PREBUILT_DTB)
 
 # Platform
 BOARD_VENDOR := $(PRODUCT_BRAND)
@@ -133,8 +147,7 @@ include hardware/oplus/sepolicy/qti/SEPolicy.mk
 
 # Verified Boot
 BOARD_AVB_ENABLE := true
-BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS += --set_hashtree_disabled_flag
-BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS += --flags 2
+BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS += --flags 3
 
 BOARD_AVB_BOOT_KEY_PATH := external/avb/test/data/testkey_rsa4096.pem
 BOARD_AVB_BOOT_ALGORITHM := SHA256_RSA4096
