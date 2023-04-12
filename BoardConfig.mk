@@ -129,7 +129,7 @@ BOARD_USES_METADATA_PARTITION := true
 TARGET_BOARD_PLATFORM := $(PRODUCT_PLATFORM)
 
 # Power
-TARGET_TAP_TO_WAKE_NODE := "/proc/tp_gesture"
+TARGET_TAP_TO_WAKE_NODE := "/proc/touchpanel/double_tap_enable"
 
 # Recovery
 TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/rootdir/etc/fstab.emmc
