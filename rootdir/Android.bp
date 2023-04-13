@@ -78,3 +78,9 @@ prebuilt_etc {
     src: "etc/fstab.default",
     vendor: true,
 }
+
+prebuilt_etc {
+    name: "charger_fstab.qti",
+    src: "etc/charger_fstab.qti",
+    vendor: true,
+}
