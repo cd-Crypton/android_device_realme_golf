@@ -373,7 +373,8 @@ PRODUCT_PACKAGES += \
 # Soong Namespaces
 PRODUCT_SOONG_NAMESPACES += \
     $(LOCAL_PATH) \
-    hardware/oplus
+    hardware/oplus \
+    $(LOCAL_PATH)/hals
     
 # Telephony
 PRODUCT_PACKAGES += \
