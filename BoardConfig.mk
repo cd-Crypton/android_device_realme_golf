@@ -68,7 +68,8 @@ TARGET_FS_CONFIG_GEN := $(DEVICE_PATH)/configs/config.fs
 
 # Configs (Manifest)
 DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += \
-     $(DEVICE_PATH)/configs/manifest/framework_compatibility_matrix.xml
+     $(DEVICE_PATH)/configs/manifest/framework_compatibility_matrix.xml \
+     vendor/lineage/config/device_framework_matrix.xml
 DEVICE_MANIFEST_FILE += $(DEVICE_PATH)/configs/manifest/manifest.xml
 DEVICE_MATRIX_FILE += $(DEVICE_PATH)/configs/manifest/compatibility_matrix.xml
 
