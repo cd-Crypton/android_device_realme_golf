@@ -1,6 +1,6 @@
 ## Android Device Tree | LineageOS
-Device: Realme 9 (4G)
-Model: RMX3521
+Device: Realme 9i (4G)
+Model: RMX3491
 Alt. Name: golf
 
 ```
