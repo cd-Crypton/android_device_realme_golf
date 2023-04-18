@@ -8,7 +8,7 @@
 
 set -e
 
-DEVICE=messi
+DEVICE=golf
 VENDOR=realme
 
 # Load extract_utils and do some sanity checks

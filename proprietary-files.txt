@@ -1,4 +1,4 @@
-# Necessary blobs are extracted from RMX3521_11.A.31_0310_202212152204
+# Necessary blobs are extracted from RMX3491_A.11_C.08
 
 # ACDB
 odm/etc/acdbdata/Audio_Parameter_Version.txt
@@ -120,19 +120,20 @@ vendor/lib/librecovery_updater_msm.so
 vendor/lib64/librecovery_updater_msm.so
 
 # Camera
-odm/lib/vendor.oplus.hardware.orms@1.0.so
-odm/lib64/camera/com.qti.sensor.messi_qt_ov08d10_wide.so
-odm/lib64/camera/com.qti.sensor.messi_qtech_s5khm6_rear.so
-odm/lib64/camera/com.qti.sensor.messi_sy_gc02m1_macro.so
-odm/lib64/camera/com.qti.sensor.messi_sy_imx471_front.so
-odm/lib64/camera/com.qti.sensormodule.messi_qt_ov08d10_wide.bin
-odm/lib64/camera/com.qti.sensormodule.messi_qtech_s5khm6_rear.bin
-odm/lib64/camera/com.qti.sensormodule.messi_sy_gc02m1_macro.bin
-odm/lib64/camera/com.qti.sensormodule.messi_sy_imx471_front.bin
-odm/lib64/camera/com.qti.tuned.messi_qt_ov08d10_wide.bin
-odm/lib64/camera/com.qti.tuned.messi_qtech_s5khm6_rear.bin
-odm/lib64/camera/com.qti.tuned.messi_sy_gc02m1_macro.bin
-odm/lib64/camera/com.qti.tuned.messi_sy_imx471_front.bin
+odm/lib64/camera/com.qti.sensor.kasa_st_gc02m1_macro.so
+odm/lib64/camera/com.qti.sensor.kasa_st_gc02m1b_mono.so
+odm/lib64/camera/com.qti.sensor.kasa_sy_imx471_front.so
+odm/lib64/camera/com.qti.sensor.kasa_sy_s5kjn1sq03_rear.so
+odm/lib64/camera/com.qti.sensormodule.kasa_st_gc02m1_aw36515_macro.bin
+odm/lib64/camera/com.qti.sensormodule.kasa_st_gc02m1_sy7806e_macro.bin
+odm/lib64/camera/com.qti.sensormodule.kasa_st_gc02m1b_mono.bin
+odm/lib64/camera/com.qti.sensormodule.kasa_sy_imx471_front.bin
+odm/lib64/camera/com.qti.sensormodule.kasa_sy_s5kjn1sq03_aw36515_rear.bin
+odm/lib64/camera/com.qti.sensormodule.kasa_sy_s5kjn1sq03_sy7806e_rear.bin
+odm/lib64/camera/com.qti.tuned.kasa_st_gc02m1_macro.bin
+odm/lib64/camera/com.qti.tuned.kasa_st_gc02m1b_mono.bin
+odm/lib64/camera/com.qti.tuned.kasa_sy_imx471_front.bin
+odm/lib64/camera/com.qti.tuned.kasa_sy_s5kjn1sq03_rear.bin
 odm/lib64/libormshalclient.so
 odm/lib64/vendor.oplus.hardware.orms@1.0.so
 system_ext/lib/vendor.qti.hardware.seccam@1.0.so

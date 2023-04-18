@@ -38,7 +38,7 @@ endif
 #===============================================================================
 
 LOCAL_C_INCLUDES        := $(LOCAL_PATH)/src/common
-LOCAL_C_INCLUDES        += $(TOP)/device/realme/messi/hals/media/libplatformconfig
+LOCAL_C_INCLUDES        += $(TOP)/device/realme/golf/hals/media/libplatformconfig
 
 LOCAL_HEADER_LIBRARIES := \
         libutils_headers \
@@ -83,7 +83,7 @@ include $(BUILD_SHARED_LIBRARY)
 include $(CLEAR_VARS)
 
 LOCAL_C_INCLUDES        := $(LOCAL_PATH)/src/common
-LOCAL_C_INCLUDES        += $(TOP)/device/realme/messi/hals/media/libplatformconfig
+LOCAL_C_INCLUDES        += $(TOP)/device/realme/golf/hals/media/libplatformconfig
 
 LOCAL_HEADER_LIBRARIES := \
         libutils_headers \

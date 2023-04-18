@@ -4,26 +4,7 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
-LOCAL_PATH := device/realme/messi
-
-# A/B
-$(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota/launch.mk)
-
-AB_OTA_POSTINSTALL_CONFIG += \
-    RUN_POSTINSTALL_system=true \
-    POSTINSTALL_PATH_system=system/bin/otapreopt_script \
-    FILESYSTEM_TYPE_system=ext4 \
-    POSTINSTALL_OPTIONAL_system=true
-
-AB_OTA_POSTINSTALL_CONFIG += \
-    RUN_POSTINSTALL_vendor=true \
-    POSTINSTALL_PATH_vendor=bin/checkpoint_gc \
-    FILESYSTEM_TYPE_vendor=ext4 \
-    POSTINSTALL_OPTIONAL_vendor=true
-
-PRODUCT_PACKAGES += \
-    checkpoint_gc \
-    otapreopt_script
+LOCAL_PATH := device/realme/golf
 
 # AOSP Permissions
 PRODUCT_COPY_FILES += \
@@ -116,15 +97,6 @@ PRODUCT_PACKAGES += \
     vendor.qti.hardware.bluetooth_audio@2.1.vendor \
     vendor.qti.hardware.btconfigstore@1.0.vendor \
     vendor.qti.hardware.btconfigstore@2.0.vendor
-
-# Boot
-PRODUCT_PACKAGES += \
-    android.hardware.boot@1.2-impl \
-    android.hardware.boot@1.2-impl.recovery \
-    android.hardware.boot@1.2-service
-
-PRODUCT_PACKAGES_DEBUG += \
-    bootctl
 
 # Camera
 PRODUCT_PACKAGES += \
@@ -246,7 +218,8 @@ PRODUCT_PACKAGES += \
 
 # Hotword Enrollment
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/permissions/privapp-permissions-google-hotword.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp-permissions-google-hotword.xml
+    $(LOCAL_PATH)/permissions/privapp-permissions-google-hotword.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp-permissions-google-hotword.xml
+    $(LOCAL_PATH)/permissions/com.android.hotwordenrollment.common.util.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/com.android.hotwordenrollment.common.util.xml
 
 # IPACM
 PRODUCT_PACKAGES += \
@@ -317,7 +290,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_CHARACTERISTICS := nosdcard
 
 # Proprietary
-$(call inherit-product, vendor/realme/messi/messi-vendor.mk)
+$(call inherit-product, vendor/realme/golf/golf-vendor.mk)
 
 # Public libraries
 PRODUCT_COPY_FILES += \
@@ -402,18 +375,6 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_BOOT_JARS += \
     telephony-ext
-
-# Update Engine
-PRODUCT_PACKAGES += \
-    update_engine \
-    update_engine_sideload \
-    update_verifier
-
-PRODUCT_HOST_PACKAGES += \
-    brillo_update_payload
-
-PRODUCT_PACKAGES_DEBUG += \
-    update_engine_client
 
 # USB
 PRODUCT_PACKAGES += \

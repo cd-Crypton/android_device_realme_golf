@@ -4,31 +4,18 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
-DEVICE_PATH := device/realme/messi
-
-# A/B
-AB_OTA_UPDATER := true
-AB_OTA_PARTITIONS += \
-    boot \
-    dtbo \
-    system \
-    system_ext \
-    vendor \
-    product \
-    odm \
-    vbmeta \
-    vbmeta_system
+DEVICE_PATH := device/realme/golf
 
 # Architecture
 TARGET_ARCH := arm64
-TARGET_ARCH_VARIANT := armv8-2a-dotprod
+TARGET_ARCH_VARIANT := armv8-a
 TARGET_CPU_ABI := arm64-v8a
 TARGET_CPU_ABI2 := 
 TARGET_CPU_VARIANT := generic
 TARGET_CPU_VARIANT_RUNTIME := cortex-a9
 
 TARGET_2ND_ARCH := arm
-TARGET_2ND_ARCH_VARIANT := armv8-2a
+TARGET_2ND_ARCH_VARIANT := armv7-a-neon
 TARGET_2ND_CPU_ABI := armeabi-v7a
 TARGET_2ND_CPU_ABI2 := armeabi
 TARGET_2ND_CPU_VARIANT := generic
@@ -68,10 +55,10 @@ TARGET_FS_CONFIG_GEN := $(DEVICE_PATH)/configs/config.fs
 
 # Configs (Manifest)
 DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += \
-     $(DEVICE_PATH)/configs/manifest/framework_compatibility_matrix.xml \
+     $(DEVICE_PATH)/hidl/framework_compatibility_matrix.xml \
      vendor/lineage/config/device_framework_matrix.xml
-DEVICE_MANIFEST_FILE += $(DEVICE_PATH)/configs/manifest/manifest.xml
-DEVICE_MATRIX_FILE += $(DEVICE_PATH)/configs/manifest/compatibility_matrix.xml
+DEVICE_MANIFEST_FILE += $(DEVICE_PATH)/hidl/manifest.xml
+DEVICE_MATRIX_FILE += $(DEVICE_PATH)/hidl/compatibility_matrix.xml
 
 # Configs (Props)
 TARGET_VENDOR_PROP += $(DEVICE_PATH)/properties/vendor.prop
@@ -139,7 +126,7 @@ BOARD_INCLUDE_RECOVERY_DTBO := true
 # Kernel (Source)
 TARGET_KERNEL_ARCH := arm64
 TARGET_KERNEL_CONFIG := $(PRODUCT_PLATFORM)_defconfig
-TARGET_KERNEL_SOURCE := kernel/realme/messi
+TARGET_KERNEL_SOURCE := kernel/realme/golf
 TARGET_KERNEL_HEADERS := $(TARGET_KERNEL_SOURCE)
 
  # Kernel (Args)
