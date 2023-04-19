@@ -931,7 +931,6 @@ system_ext/lib64/vendor.qti.ims.rcsconfig@1.1.so
 system_ext/lib64/vendor.qti.ims.rcsconfig@2.0.so
 system_ext/lib64/vendor.qti.ims.rcsconfig@2.1.so
 system_ext/lib64/vendor.qti.ims.rcssip@1.0.so
-system_ext/lib64/vendor.qti.ims.rcssip@1.1.so
 system_ext/lib64/vendor.qti.ims.rcsuce@1.0.so
 system_ext/lib64/vendor.qti.imsrtpservice@3.0.so
 system_ext/priv-app/ims/ims.apk
