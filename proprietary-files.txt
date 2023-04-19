@@ -1679,7 +1679,6 @@ vendor/lib64/libqti-perfd.so
 vendor/lib64/libqti-utils.so
 vendor/lib64/libqtigef.so
 vendor/lib64/librcmask.so
-vendor/lib64/librecovery_updater.so
 vendor/lib64/libreffeature.so
 vendor/lib64/librfapis.so
 vendor/lib64/libril-qc-ltedirectdisc.so
