@@ -896,7 +896,6 @@ system_ext/lib/vendor.qti.ims.rcsconfig@1.1.so
 system_ext/lib/vendor.qti.ims.rcsconfig@2.0.so
 system_ext/lib/vendor.qti.ims.rcsconfig@2.1.so
 system_ext/lib/vendor.qti.ims.rcssip@1.0.so
-system_ext/lib/vendor.qti.ims.rcssip@1.1.so
 system_ext/lib/vendor.qti.ims.rcsuce@1.0.so
 system_ext/lib/vendor.qti.imsrtpservice@3.0.so
 system_ext/lib64/com.qualcomm.qti.imscmservice@1.0.so
@@ -1143,7 +1142,6 @@ vendor/lib64/vendor.qti.hardware.wifi.wifilearner@1.0.so
 vendor/lib64/vendor.qti.hardware.wigig.netperftuner@1.0.so
 
 # Wi-Fi configs
-odm/etc/wifi/bdwlan.bin
 odm/etc/wifi/regdb.bin
 odm/etc/wifi/sar-vendor-cmd.xml
 odm/etc/wifi/wifisar.cfg
