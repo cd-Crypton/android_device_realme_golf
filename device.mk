@@ -218,7 +218,7 @@ PRODUCT_PACKAGES += \
 
 # Hotword Enrollment
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/permissions/privapp-permissions-google-hotword.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp-permissions-google-hotword.xml \
+    $(LOCAL_PATH)/permissions/privapp-permissions-oplus.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp-permissions-oplus.xml \
     $(LOCAL_PATH)/permissions/com.android.hotwordenrollment.common.util.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/com.android.hotwordenrollment.common.util.xml
 
 # IPACM
