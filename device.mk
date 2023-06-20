@@ -333,7 +333,6 @@ PRODUCT_PACKAGES += \
     init.qcom.early_boot.sh \
     init.qcom.usb.sh \
     init.qcom.post_boot.sh \
-    init.qti.early_init.sh \
     init.qcom.class_core.sh
 
 PRODUCT_PACKAGES += \

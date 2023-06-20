@@ -168,7 +168,7 @@ VENDOR_SECURITY_PATCH := 2023-02-05
 USE_SENSOR_MULTI_HAL := true
 
 # SEPolicy
-include device/qcom/sepolicy_vndr/SEPolicy.mk
+include device/qcom/sepolicy_vndr-legacy-um/SEPolicy.mk
 include hardware/oplus/sepolicy/qti/SEPolicy.mk
 
 # Touch
