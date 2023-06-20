@@ -308,13 +308,10 @@ PRODUCT_PACKAGES += \
 TARGET_SUPPORTS_QUICK_TAP := true
 
 # Ramdisk
-PRODUCT_PACKAGES += \
-    fstab.emmc_ramdisk \
-    fstab.default_ramdisk
-
-# Reserve
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/rootdir/etc/ueventd.reserve.rc:$(TARGET_COPY_OUT_VENDOR)/etc/ueventd.reserve.rc
+    $(LOCAL_PATH)/rootdir/etc/init.recovery.qcom.rc:$(TARGET_COPY_OUT_RECOVERY)/root/init.recovery.qcom.rc \
+    $(LOCAL_PATH)/rootdir/etc/fstab.default:$(TARGET_COPY_OUT_RAMDISK)/fstab.default \
+    $(LOCAL_PATH)/rootdir/etc/fstab.emmc:$(TARGET_COPY_OUT_RAMDISK)/fstab.emmc
 
 # RIL
 PRODUCT_PACKAGES += \
@@ -342,8 +339,7 @@ PRODUCT_PACKAGES += \
     init.qcom.rc \
     init.target.rc \
     ueventd.qcom.rc \
-    init.aging.rc \
-    init.recovery.qcom.rc
+    ueventd.oplus.rc
 
 # Sensors
 PRODUCT_PACKAGES += \

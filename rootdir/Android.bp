@@ -11,7 +11,6 @@ sh_binary {
     vendor: true,
 }
 
-
 sh_binary {
     name: "init.qcom.sh",
     src: "bin/init.qcom.sh",
@@ -24,13 +23,11 @@ sh_binary {
     vendor: true,
 }
 
-
 sh_binary {
     name: "init.qcom.usb.sh",
     src: "bin/init.qcom.usb.sh",
     vendor: true,
 }
-
 
 sh_binary {
     name: "init.qcom.post_boot.sh",
@@ -43,7 +40,6 @@ sh_binary {
     src: "bin/init.qcom.class_core.sh",
     vendor: true,
 }
-
 
 prebuilt_etc {
     name: "init.qcom.usb.rc",
@@ -64,6 +60,20 @@ prebuilt_etc {
     src: "etc/init.target.rc",
     sub_dir: "init/hw",
     vendor: true,
+}
+
+prebuilt_etc {
+    name: "ueventd.qcom.rc",
+    filename: "ueventd.rc",
+    src: "etc/ueventd.qcom.rc",
+    vendor: true,
+}
+
+prebuilt_etc {
+    name: "ueventd.oplus.rc",
+    filename: "ueventd.rc",
+    src: "etc/ueventd.oplus.rc",
+    device_specific: true,
 }
 
 // fstab

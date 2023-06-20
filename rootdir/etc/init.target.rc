@@ -28,12 +28,7 @@
 #
 
 on early-init
-    #ifndef OPLUS_ARCH_EXTENDS
-    #Ming.Liu@MM.Audiodriver.Codec 2020/10/18  added for audio bring up
-    #exec u:r:vendor_modprobe:s0 -- /vendor/bin/modprobe -a -d /vendor/lib/modules audio_q6_pdr audio_q6_notifier audio_snd_event audio_apr audio_adsp_loader audio_q6 audio_native audio_usf audio_pinctrl_lpi audio_swr audio_swr_ctrl audio_platform audio_stub audio_wcd_core audio_wcd9xxx audio_wsa881x_analog audio_bolero_cdc audio_va_macro audio_rx_macro audio_tx_macro audio_mbhc audio_wcd937x audio_wcd937x_slave audio_pm2250_spmi audio_rouleur audio_rouleur_slave audio_machine_bengal
-    #else/*OPLUS_ARCH_EXTENDS*/
     exec u:r:vendor_modprobe:s0 -- /vendor/bin/modprobe -a -d /vendor/lib/modules audio_q6_pdr audio_q6_notifier audio_snd_event audio_apr audio_adsp_loader audio_q6 audio_native audio_usf audio_pinctrl_lpi audio_swr audio_swr_ctrl audio_platform audio_stub audio_wcd_core audio_wcd9xxx audio_aw87xxx audio_sia81xx audio_pa_manager audio_aw882xx audio_bolero_cdc audio_va_macro audio_rx_macro audio_tx_macro audio_mbhc audio_wcd937x audio_wcd937x_slave audio_pm2250_spmi audio_rouleur audio_rouleur_slave audio_machine_bengal
-    #endif/*OPLUS_ARCH_EXTENDS*/
     write /proc/sys/kernel/sched_boost 1
     exec u:r:vendor_qti_init_shell:s0 -- /vendor/bin/init.qti.early_init.sh
     setprop ro.soc.model ${ro.vendor.qti.soc_model}
@@ -77,20 +72,7 @@ on post-fs-data
 
 on early-boot
     start vendor.sensors
-#ifdef OPLUS_FEATURE_SECURITY_COMMON
-#YongLin.Liu@BSP.Security.Basic 2021/10/26, add for CtsNativeVerifiedBootTestCases avbHashtreeNotUsingSha1
-    verity_update_state
-#endif /* OPLUS_FEATURE_SECURITY_COMMON */
 
-on boot
-    #ifdef VENDOR_EDIT
-    #Tianjing.Zhu@RM.AD.Performance , 2021/3/24, Add for boost boot time
-    write /dev/cpuset/top-app/cpus 0-7
-    write /dev/cpuset/foreground/cpus 0-7
-    write /dev/cpuset/foreground/boost/cpus 0-7
-    write /dev/cpuset/system-background/cpus 0-7
-    write /dev/cpuset/background/cpus 0-3
-    #endif
 #USB controller configuration
     setprop vendor.usb.rndis.func.name "gsi"
     setprop vendor.usb.rmnet.func.name "gsi"
@@ -146,16 +128,6 @@ on property:init.svc.vendor.per_mgr=running
 
 on property:sys.shutdown.requested=*
     stop vendor.per_proxy
-
-#//ZhangPan@CONNECTIVITY.WIFI.BASIC.LOG.1072015,2016/08/03, Remove for wifi log enhance function
-#on property:vold.decrypt=trigger_restart_framework
-#   start vendor.cnss_diag
-#service vendor.cnss_diag /system/vendor/bin/cnss_diag -q -f -t HELIUM
-#   class main
-#   user system
-#   group system wifi inet sdcard_rw media_rw diag
-#   oneshot
-#endif /* OPLUS_BUG_COMPATIBILITY */
 
 on property:ro.vendor.qti.soc_id=444
     setprop ro.soc.model SM6115

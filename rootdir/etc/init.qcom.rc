@@ -31,27 +31,6 @@ import /vendor/etc/init/hw/init.qcom.test.rc
 import /vendor/etc/init/hw/init.target.rc
 import /vendor/etc/init/hw/init.qcom.factory.rc
 
-#ifdef OPLUS_BUG_STABILITY
-#ZhangLiangliang@MULTIMEDIA.DISPLAY.DS.FEATURE, 2020/03/31, Add for import init.oplus.display.rc
-import /odm/etc/init/hw/init.oplus.display.rc
-#endif /*OPLUS_BUG_STABILITY*/
-
-
-#ifdef OPLUS_FEATURE_WIFI_BDF
-#WuGuotian@CONNECTIVITY.WIFI.HARDWARE.BDF.1065227 , 2021/05/26, Add for : init.oplus.wifi.rc
-import /odm/etc/init/hw/init.oplus.wifi.rc
-#endif /* OPLUS_FEATURE_WIFI_BDF */
-
-#ifdef OPLUS_FEATURE_STORAGE_USB
-#Xuefeng.Peng@ANDROID.STORAGE.0, 2019/06/10, Add for init.oplus.reserve.rc
-import /odm/etc/init/init.oplus.reserve.rc
-#endif /*OPLUS_FEATURE_STORAGE_USB*/
-
-#ifdef OPLUS_FEATURE_SENSOR_DRIVER
-#Fei.Mo@PSW.BSP.Sensor 2018/03/20, Add for init.oppo.sensor.rc
-import /odm/etc/init/init.oppo.sensor.rc
-#endif /*OPLUS_FEATURE_SENSOR_DRIVER*/
-
 on early-init
     mount debugfs debugfs /sys/kernel/debug
     chmod 0755 /sys/kernel/debug
@@ -70,12 +49,6 @@ on early-init
     chown system graphics /sys/kernel/debug/dri/0/debug/recovery_vbif_dbgbus
     chown system graphics /sys/kernel/debug/dri/0/debug/recovery_dsi_dbgbus
 
-  #ifdef OPLUS_BUG_STABILITY
-    #liwei.a@PSW.MM.Display.LCD.Stability, 2019/06/13, add for display node permission
-    chown system system /sys/kernel/oppo_display/shutdownflag
-    chmod 0666 /sys/kernel/oppo_display/shutdownflag
-  #endif /* OPLUS_BUG_STABILITY */
-
   # Change ownership of sysfs power control node
     chown system graphics /sys/class/drm/card0/device/power/control
 
@@ -92,7 +65,6 @@ on early-init
     #exec u:r:vendor_modprobe:s0 -- /vendor/bin/modprobe -a -d /vendor/lib/modules msm_11ad_proxy
 
 on init
-
     # Support legacy paths
     symlink /sdcard /mnt/sdcard
     symlink /sdcard /storage/sdcard0
@@ -652,20 +624,8 @@ service qcom-c_main-sh /vendor/bin/init.class_main.sh
 
 on property:vold.decrypt=trigger_restart_framework
     start qcom-c_main-sh
-    # ifdef OPLUS_FEATURE_TP_BSPFWUPDATE
-    # Tong.Han@PSW.Bsp.Tp, 2018/01/31, Add to aceess data fw files
-    start bspFwUpdate
-    # endif /* OPLUS_FEATURE_TP_BSPFWUPDATE */
     start wcnss-service
 
-# ifdef OPLUS_FEATURE_TP_BSPFWUPDATE
-# Xiong.xing@BSP.TP, 2018/03/01, Add for start fw update service
-on property:ro.crypto.state=unencrypted
-    start bspFwUpdate
-
-on property:ro.crypto.state=unsupported
-    start bspFwUpdate
-# endif /* OPLUS_FEATURE_TP_BSPFWUPDATE */
 
 service vendor.qrtr-ns /vendor/bin/qrtr-ns -f
     class core
@@ -691,43 +651,6 @@ on property:ro.data.large_tcp_window_size=true
 
 on property:sys.sysctl.tcp_adv_win_scale=*
     write /proc/sys/net/ipv4/tcp_adv_win_scale ${sys.sysctl.tcp_adv_win_scale}
-
-#ifndef VENDOR_EDIT
-#Tao.Hui@PSW.CN.WiFi.Basic.Log.1072015, 2015/04/24,
-#Modify for:close defualt debug log of wpa_supplicant
-#service wpa_supplicant /vendor/bin/hw/wpa_supplicant \
-#    -O/data/vendor/wifi/wpa/sockets -puse_p2p_group_interface=1 -dd \
-#    -g@android:vendor_wpa_wlan0
-#   we will start as root and wpa_supplicant will switch to user wifi
-#   after setting up the capabilities required for WEXT
-#   user wifi
-#   group wifi inet keystore
-#    interface android.hardware.wifi.supplicant@1.0::ISupplicant default
-#    interface android.hardware.wifi.supplicant@1.1::ISupplicant default
-#    class main
-#    socket vendor_wpa_wlan0 dgram 660 wifi wifi
-#    disabled
-#    oneshot
-#else
-service wpa_supplicant /vendor/bin/hw/wpa_supplicant \
-    -O/data/vendor/wifi/wpa/sockets -puse_p2p_group_interface=1 \
-    -g@android:vendor_wpa_wlan0
-#   we will start as root and wpa_supplicant will switch to user wifi
-#   after setting up the capabilities required for WEXT
-#   user wifi
-#   group wifi inet keystore
-    interface android.hardware.wifi.supplicant@1.0::ISupplicant default
-    interface android.hardware.wifi.supplicant@1.1::ISupplicant default
-    interface android.hardware.wifi.supplicant@1.2::ISupplicant default
-    interface android.hardware.wifi.supplicant@1.3::ISupplicant default
-    interface vendor.qti.hardware.wifi.supplicant@2.0::ISupplicantVendor default
-    interface vendor.qti.hardware.wifi.supplicant@2.1::ISupplicantVendor default
-    interface vendor.qti.hardware.wifi.supplicant@2.2::ISupplicantVendor default
-    class main
-    socket vendor_wpa_wlan0 dgram 660 wifi wifi
-    disabled
-    oneshot
-#endif
 
 service vendor.wigig_supplicant /vendor/bin/hw/wpa_supplicant \
     -iwigig0 -Dnl80211 -c/data/vendor/wifi/wigig_supplicant.conf \
@@ -876,11 +799,6 @@ service qcom-sh /vendor/bin/init.qcom.sh
     user root
     group root system radio
     oneshot
-# Remove since is deprecated but throws AVC denial.
-# service crashdata-sh /vendor/bin/init.qcom.crashdata.sh
-#    class late_start
-#    user root
-#    oneshot
 
 service qcom-post-boot /vendor/bin/init.qcom.post_boot.sh
     class late_start
@@ -1074,26 +992,6 @@ service vendor.power_off_alarm /vendor/bin/power_off_alarm
     disabled
     oneshot
 
-#ifndef VENDOR_EDIT
-#Guqcai@psw.bsp.tp 2018/03/12 del for closing hbtp
-#service vendor.hbtp /vendor/bin/hbtp_daemon
-#     class main
-#     user system
-#     group system
-#     capabilities SYS_NICE
-#     disabled
-#endif
-
-#ifndef OPLUS_FEATURE_SENSOR_DRIVER
-#Nanwei.Deng@PSW.BSP.POWER 2018/11/21 add to remove the useless chre for power.
-#service chre /vendor/bin/chre
-#    class late_start
-#    user system
-#    group system
-#    socket chre seqpacket 0660 root system
-#    shutdown critical
-#endif /*OPLUS_FEATURE_SENSOR_DRIVER*/
-
 on property:vendor.chre.enabled=0
    stop chre
 
@@ -1121,70 +1019,3 @@ service vendor.audio-hal /vendor/bin/hw/android.hardware.audio.service
     ioprio rt 4
     writepid /dev/cpuset/foreground/tasks /dev/stune/foreground/tasks
     onrestart restart audioserver
-    
-#ifdef OPLUS_BUG_STABLITY
-#WuShuxun@CONNECTIVITY.WIFI.INTERNET.1074197, 2018/11/08,Add for make WCNSS_qcom_cfg.ini Rom-update.
-on post-fs-data
-    chmod 0666 /mnt/vendor/persist/wlan/WCNSS_qcom_cfg.ini
-
-# To rename ini_temp.txt into WCNSS_qcom_cfg.ini
-on property:oppo.wifi.iniromupdate=*
-    copy /mnt/vendor/persist/ini_temp.txt /mnt/vendor/persist/wlan/WCNSS_qcom_cfg.ini
-    chmod 0666 /mnt/vendor/persist/wlan/WCNSS_qcom_cfg.ini
-
-# To enable /mnt/vendor/persist folder access right for ini romupdate feature
-on property:oppo.wifi.enablepersistaccess=*
-    chmod 0777 /mnt/vendor/persist
-
-# To restore /mnt/vendor/persist folder access right for ini romupdate feature
-on property:oppo.wifi.restorepersistaccess=*
-    chmod 0771 /mnt/vendor/persist
-#endif /* OPLUS_BUG_STABLITY */
-
-#ifdef VENDOR_EDIT
-#Wenqiang.Deng@PSW.CN.WiFi.Hardware.1065227, 2020/07/16
-#Add for : bt ftm from the engineer app
-service bt_ftm /vendor/bin/btftmtest
-    class late_start
-    user root
-    group root vendor_qti_diag
-    disabled
-    oneshot
-on property:oppo.bt.ftmtest=1
-     start bt_ftm
-on property:oppo.bt.ftmtest=0
-     stop bt_ftm
-#endif /* VENDOR_EDIT */
-
-#ifdef OPLUS_FEATURE_DUMP_NETCFG
-#SuPei@CONNECTIVITY.WIFI.NETWORK.100259, 2020/09/20, add for dumping qcom netcfg
-on property:persist.sys.assert.panic=true
-    stop oplus_dump_netcfg
-
-on property:persist.sys.assert.panic=false
-    start oplus_dump_netcfg
-
-service oplus_dump_netcfg /system_ext/bin/oplus_dump_netcfg
-    class main
-    user shell
-    group system net_raw net_admin readproc input inet
-    capabilities NET_ADMIN NET_RAW
-    oneshot
-#endif  /* OPLUS_FEATURE_DUMP_NETCFG */
-
-#ifdef OPLUS_FEATURE_WIFI_FTM
-#Tao.Hui@CONNECTIVITY.WIFI.BASIC.HARDWARE.1065227, 2020/08/31
-#Add for : Wifi BDF version
-service WifibdfVersion /odm/bin/vendor.autochmod.sh "WifibdfVersion"
-    class late_start
-    user root
-    group root
-    oneshot
-#endif /* VENDOR_EDIT */
-
-on property:ro.vendor.oppo.radio.multisim.config=*
-    setprop persist.radio.multisim.config ${ro.vendor.oppo.radio.multisim.config}
-
-#TianYuanKang@NETWORK.3479045, 2022/04/14 ,add for wifi-only product to implement subsys_radio interface;
-on property:ro.carrier=wifi-only
-    setprop persist.radio.multisim.config ssss
