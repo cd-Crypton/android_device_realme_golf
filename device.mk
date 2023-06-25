@@ -310,8 +310,7 @@ TARGET_SUPPORTS_QUICK_TAP := true
 # Ramdisk
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/etc/init.recovery.qcom.rc:$(TARGET_COPY_OUT_RECOVERY)/root/init.recovery.qcom.rc \
-    $(LOCAL_PATH)/rootdir/etc/fstab.default:$(TARGET_COPY_OUT_RAMDISK)/fstab.default \
-    $(LOCAL_PATH)/rootdir/etc/fstab.emmc:$(TARGET_COPY_OUT_RAMDISK)/fstab.emmc
+    $(LOCAL_PATH)/rootdir/etc/fstab.qcom:$(TARGET_COPY_OUT_RAMDISK)/fstab.qcom \
 
 # RIL
 PRODUCT_PACKAGES += \
@@ -333,8 +332,7 @@ PRODUCT_PACKAGES += \
     init.qcom.class_core.sh
 
 PRODUCT_PACKAGES += \
-    fstab.emmc \
-    fstab.default \
+    fstab.qcom \
     init.qcom.usb.rc \
     init.qcom.rc \
     init.target.rc \
