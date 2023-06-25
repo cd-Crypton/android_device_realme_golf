@@ -373,17 +373,9 @@ PRODUCT_BOOT_JARS += \
 PRODUCT_PACKAGES += \
     android.hardware.usb@1.2.vendor
 
-# Vendor service manager
-PRODUCT_PACKAGES += \
-    vndservicemanager
-
 # Vibrator
 PRODUCT_PACKAGES += \
     vendor.qti.hardware.vibrator.service
-
-# VNDK
-BOARD_VNDK_VERSION := current
-PRODUCT_EXTRA_VNDK_VERSIONS := 30
 
 # WiFi
 PRODUCT_PACKAGES += \
